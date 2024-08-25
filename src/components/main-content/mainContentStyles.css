@@ -1,0 +1,47 @@
+.mainContent {
+  display: grid;
+  grid-template: 30% 70% / 60% 40%;
+  height: 100%;
+  max-width: 100%;
+}
+
+.appInfo {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.menuWrapper {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2 span;
+}
+
+.item3 {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  background-color: rgba(240, 128, 128, 0.534);
+}
+
+@media (max-aspect-ratio: 1/1) or (min-aspect-ratio: 2/1) {
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  .appInfo {
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 50px
+  }
+  .menuWrapper {
+    margin-top: 20vh;
+  }
+  #cardWrapper{
+    margin-top: 20vh;
+  }
+}

@@ -1,0 +1,19 @@
+.userMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  max-width: 100%;
+  flex-grow: 1;
+  
+}
+.userMenu__info {
+  font-size: 42px;
+  color: #ffffff;
+  border-bottom: 5px solid black;
+
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}

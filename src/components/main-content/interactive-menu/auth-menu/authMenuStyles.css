@@ -1,0 +1,32 @@
+.authMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.authMenu__info {
+  font-size: 42px;
+  color: #ffffff;
+  border-bottom: 5px solid black;
+
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.authMenu__providers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  
+}
+
+.authMenu__regularAuth{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 30vh;
+}

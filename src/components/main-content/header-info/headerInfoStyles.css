@@ -1,0 +1,21 @@
+#appInfoTextWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  height: 100%;
+}
+
+#appNameTitle {
+  text-align: center;
+  font-size: 144px;
+  color: #bc3132;
+  max-height: 50%;
+}
+
+#motivationalText {
+  text-align: center;
+  font-size: 50px;
+  color: #ededed;
+  max-height: 50%;
+}

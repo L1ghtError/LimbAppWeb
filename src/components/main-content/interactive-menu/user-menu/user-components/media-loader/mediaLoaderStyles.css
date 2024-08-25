@@ -1,0 +1,14 @@
+.mediaLoader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+flex-direction: column;
+  max-width: 100%;
+}
+
+.controlButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
