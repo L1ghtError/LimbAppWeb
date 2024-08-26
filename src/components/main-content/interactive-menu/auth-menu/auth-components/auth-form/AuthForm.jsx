@@ -63,40 +63,44 @@ function AuthForm() {
           register
         </div>
       </div>
-      {formType == FORM_TYPE_REGISTER ? (
-        <div className="authForm__Fields">
-          <AuthField value={userEmail} placeholder="Email" onChange={setUserEmail}></AuthField>
-          <AuthField
-            value={userFullName}
-            placeholder="Full Name"
-            onChange={setUserFullName}></AuthField>
-          <AuthField value={userName} placeholder="User Name" onChange={setUserName}></AuthField>
-          <AuthField
-            value={userPassword}
-            placeholder="Password"
-            onChange={setUserPassword}
-            isPassword={true}></AuthField>
-          <button className="authForm__submitButton" onClick={handleSubmit}>
-            Submit
-          </button>
-        </div>
-      ) : (
-        <div className="authForm__Fields">
-          <AuthField
-            value={userEmail}
-            placeholder="Email"
-            onChange={setUserEmail}
-            isPassword={false}></AuthField>
-          <AuthField
-            value={userPassword}
-            placeholder="Password"
-            onChange={setUserPassword}
-            isPassword={true}></AuthField>
-          <button className="authForm__submitButton" onClick={handleLogin}>
-            Login
-          </button>
-        </div>
-      )}
+
+      <div className={`authForm__Fields`}>
+        {formType == FORM_TYPE_REGISTER ? (
+          <>
+            <AuthField value={userEmail} placeholder="Email" onChange={setUserEmail}></AuthField>
+            <AuthField
+              value={userFullName}
+              placeholder="Full Name"
+              onChange={setUserFullName}></AuthField>
+            <AuthField value={userName} placeholder="User Name" onChange={setUserName}></AuthField>
+            <AuthField
+              value={userPassword}
+              placeholder="Password"
+              onChange={setUserPassword}
+              isPassword={true}></AuthField>
+            <button className="authForm__submitButton" onClick={handleSubmit}>
+              Submit
+            </button>
+          </>
+        ) : (
+          <>
+            <AuthField
+              value={userEmail}
+              placeholder="Email"
+              onChange={setUserEmail}
+              isPassword={false}></AuthField>
+            <AuthField
+              value={userPassword}
+              placeholder="Password"
+              onChange={setUserPassword}
+              isPassword={true}></AuthField>
+            <button className="authForm__submitButton" onClick={handleLogin}>
+              Login
+            </button>
+          </>
+        )}
+      </div>
+
       {isValidSubmition == '' ? null : <div className="authForm__invalid">{isValidSubmition}</div>}
     </div>
   );
