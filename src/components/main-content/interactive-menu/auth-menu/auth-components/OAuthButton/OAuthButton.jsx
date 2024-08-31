@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import './oAuthButtonStyles.css';
 import PropTypes from 'prop-types';
-import { getBackendURL } from '../../../../../../scripts/bcRequests/networkCommunication';
+import { getBackendURL } from '../../../../../../scripts/api/networkCommunication';
 
 function OAuthButton({ oAuthProviders }) {
   const oAuthWindowRef = useRef(undefined);

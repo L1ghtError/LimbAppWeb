@@ -4,8 +4,6 @@
   align-items: center;
   justify-content: start;
   max-width: 100%;
-  flex-grow: 1;
-  
 }
 .userMenu__info {
   font-size: 42px;

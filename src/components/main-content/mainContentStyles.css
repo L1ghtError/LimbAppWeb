@@ -30,18 +30,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
   }
   .appInfo {
     align-items: center;
     justify-content: center;
     margin-bottom: 50px;
-    margin-top: 50px
+    margin-top: 50px;
   }
   .menuWrapper {
     margin-top: 20vh;
   }
-  #cardWrapper{
+  #cardWrapper {
     margin-top: 20vh;
   }
 }

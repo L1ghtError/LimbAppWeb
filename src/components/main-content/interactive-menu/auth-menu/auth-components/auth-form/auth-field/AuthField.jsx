@@ -12,6 +12,8 @@ function AuthField({ value, placeholder = 'fill me!', onChange = () => {}, isPas
       <input
         value={value}
         type={isPassword ? 'password' : 'text'}
+        name={isPassword ? 'password' : 'input'}
+        autoComplete={isPassword ? 'new-password' : 'off'}
         className="authField__input"
         placeholder={placeholder}
         onChange={handleInputChange}

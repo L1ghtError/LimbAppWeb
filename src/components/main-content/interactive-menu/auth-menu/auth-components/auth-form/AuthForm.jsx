@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AuthService from '../../../../../../scripts/api/auth';
 import AuthField from './auth-field/AuthField';
 import './authFormStyles.css';
 
@@ -11,32 +12,33 @@ function AuthForm() {
   const [userFullName, setUserFullName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userName, setUserName] = useState('');
-  const [isValidSubmition, setIsValidSubmition] = useState('');
+  const [invalidSubmition, setInvalidSubmition] = useState('');
 
   const handleSubmit = () => {
     if (
-      userEmail.length <= 0 ||
+      userEmail.length <= 3 ||
       userFullName.length <= 0 ||
       userName.length <= 0 ||
-      userPassword.length <= 0
+      userPassword.length <= 8
     ) {
-      setIsValidSubmition('All Fields must be set');
+      setInvalidSubmition('All Fields must be set');
       return;
     }
 
-    setIsValidSubmition('');
+    setInvalidSubmition('');
+    AuthService.registration(userEmail, userName, userFullName, userPassword);
     console.log(
       `Email: ${userEmail}, Fullname: ${userFullName}, UserName: ${userName} Password: ${userPassword} `
     );
   };
 
   const handleLogin = () => {
-    if (userEmail.length <= 0 || userPassword.length <= 0) {
-      setIsValidSubmition('All Fields must be set');
+    if (userEmail.length <= 3 || userPassword.length <= 8) {
+      setInvalidSubmition('All Fields must be set');
       return;
     }
-
-    setIsValidSubmition('');
+    AuthService.login(userEmail, userPassword);
+    setInvalidSubmition('');
     console.log(`Email: ${userEmail}, Password: ${userPassword} `);
   };
 
@@ -101,7 +103,7 @@ function AuthForm() {
         )}
       </div>
 
-      {isValidSubmition == '' ? null : <div className="authForm__invalid">{isValidSubmition}</div>}
+      {invalidSubmition == '' ? null : <div className="authForm__invalid">{invalidSubmition}</div>}
     </div>
   );
 }
