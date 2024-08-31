@@ -3,20 +3,21 @@ import UserService from '../scripts/api/user';
 
 export const fetchUserInfo = createAsyncThunk('posts/fetchUserInfo', async () => {
   const response = await UserService.basics();
-  const data = await response.json();
+  const data = { userInfo: response.data };
   return data;
 });
 
-const UserState = {
-  FULFILLED: 'fulfilled',
-  PENDING: 'pending',
-  REJECTED: 'rejected'
+
+
+export const UserState = {
+  FULFILLED: 'FULFILLED',
+  PENDING: 'PENDING',
+  REJECTED: 'REJECTED'
 };
 
 const initialState = {
   userParams: {
-    userState: false,
-    isLoaded: false
+    userState: UserState.PENDING
   },
   userInfo: {
     userId: '',
@@ -34,17 +35,16 @@ const userSlice = createSlice({
     setUserInfo: (state, action) => {
       state.userInfo.userInfo = action.payload.userInfo;
       state.userInfo.userParams.isLogged = action.payload.isLogged;
-      state.userInfo.userParams.isLoaded = true;
     }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchUserInfo.pending, (state) => {
-        state.userInfo.userState = UserState.PENDING;
+        state.userParams.userState = UserState.PENDING;
       })
       .addCase(fetchUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload.userInfo;
-        state.userInfo.userState = UserState.FULFILLED;
+        state.userParams.userState = UserState.FULFILLED;
       })
       .addCase(fetchUserInfo.rejected, (state) => {
         state.userParams.userState = UserState.REJECTED;

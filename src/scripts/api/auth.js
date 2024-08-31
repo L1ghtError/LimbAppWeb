@@ -1,4 +1,6 @@
 import endPoints from './endPoints';
+
+import { getBackendURL } from './networkCommunication';
 import { $api, $noInterceptApi } from './api';
 
 export default class AuthService {
@@ -16,13 +18,22 @@ export default class AuthService {
         username: username,
         fullname: fullname,
         password: password
-      },
-      { validateStatus: null }
+      }
     );
   }
 
   static async logout() {
     const urlData = endPoints('logout');
     return $api.post(urlData.url);
+  }
+
+  static async refresh() {
+    const urlData = endPoints('refresh');
+    const response = await $noInterceptApi.post(
+      `${getBackendURL()}/${urlData.url}`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
   }
 }

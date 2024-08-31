@@ -4,6 +4,7 @@ import { $api } from './api';
 export default class UserService {
   static async basics() {
     const urlData = endPoints('basics');
-    return $api.post(urlData.url);
+    const data = await $api.get(urlData.url);
+    return data;
   }
 }

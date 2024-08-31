@@ -26,7 +26,15 @@ function AuthForm() {
     }
 
     setInvalidSubmition('');
-    AuthService.registration(userEmail, userName, userFullName, userPassword);
+    AuthService.registration(userEmail, userName, userFullName, userPassword)
+      .then(function () {
+        window.location.reload();
+      })
+      .catch(function (error) {
+        if (error.response) {
+          setInvalidSubmition(error.response.data.message);
+        }
+      });
     console.log(
       `Email: ${userEmail}, Fullname: ${userFullName}, UserName: ${userName} Password: ${userPassword} `
     );
@@ -37,9 +45,16 @@ function AuthForm() {
       setInvalidSubmition('All Fields must be set');
       return;
     }
-    AuthService.login(userEmail, userPassword);
+    AuthService.login(userEmail, userPassword)
+      .then(function () {
+        window.location.reload();
+      })
+      .catch(function (error) {
+        if (error.response) {
+          setInvalidSubmition(error.response.data.message);
+        }
+      });
     setInvalidSubmition('');
-    console.log(`Email: ${userEmail}, Password: ${userPassword} `);
   };
 
   const handleLoginType = () => {

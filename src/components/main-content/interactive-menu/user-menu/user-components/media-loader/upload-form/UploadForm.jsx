@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './uploadFormStyles.css';
 import uploadIcon from '../../../../../../../assets/uploadIcon.svg';
 
-import { useDispatch } from 'react-redux';
 import { setMediaContentThunk, selectMediaContent } from '../../../../../../../store/MediaSlice';
 
 const ACCEPT_TYPES = ['image/jpeg', 'image/png', 'image/gif'];

@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import mediaSlice from './MediaSlice';
-import userSlice from './MediaSlice';
+import userSlice from './UserSlice';
 
 const rootReducer = combineReducers({
   mediaSlice: mediaSlice,
