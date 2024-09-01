@@ -11,15 +11,12 @@ export default class AuthService {
 
   static async registration(email, username, fullname, password) {
     const urlData = endPoints('registration');
-    return $noInterceptApi.post(
-      urlData.url,
-      {
-        email: email,
-        username: username,
-        fullname: fullname,
-        password: password
-      }
-    );
+    return $noInterceptApi.post(urlData.url, {
+      email: email,
+      username: username,
+      fullname: fullname,
+      password: password
+    });
   }
 
   static async logout() {
@@ -35,5 +32,10 @@ export default class AuthService {
       { withCredentials: true }
     );
     return response.data;
+  }
+
+  static async authGoogleCallback(searchParam) {
+    const urlData = endPoints('googleOAuthCb');
+    return $noInterceptApi.get(`${urlData.url}/${searchParam}`, { withCredentials: true });
   }
 }

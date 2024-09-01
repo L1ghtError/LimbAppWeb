@@ -1,5 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import OauthGoogle from './components/oauth-callbacks/oauth-google/OauthGoogle.jsx';
+
 import { Provider } from 'react-redux';
 import store from './store/Store.js';
 import App from './App.jsx';
@@ -21,7 +25,24 @@ window.addEventListener('resize', handleNarrowScreen);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <App />
+              </>
+            }></Route>
+          <Route
+            path="/api/oauth/google/callback"
+            element={
+              <>
+                <OauthGoogle></OauthGoogle>
+              </>
+            }></Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </StrictMode>
 );

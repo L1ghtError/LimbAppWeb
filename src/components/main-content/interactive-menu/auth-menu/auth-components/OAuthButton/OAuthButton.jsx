@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import './oAuthButtonStyles.css';
 import PropTypes from 'prop-types';
 import { getBackendURL } from '../../../../../../scripts/api/networkCommunication';
@@ -6,17 +6,34 @@ import { getBackendURL } from '../../../../../../scripts/api/networkCommunicatio
 function OAuthButton({ oAuthProviders }) {
   const oAuthWindowRef = useRef(undefined);
 
+  useEffect(() => {
+    const channel = new BroadcastChannel(oAuthProviders.link);
+
+    channel.onmessage = (event) => {
+      if (event.data === oAuthProviders.closeWindowsSuccess) {
+        oAuthWindowRef.current.close();
+        window.location.reload();
+      } else if (event.data === oAuthProviders.closeWindowsErr) {
+        console.log('Err', event.data);
+      }
+    };
+
+    return () => {
+      channel.close();
+    };
+  }, [oAuthProviders]);
+
   const handleClick = () => {
     // Close the previous window if it's still open
     if (oAuthWindowRef.current && !oAuthWindowRef.current.closed) {
       oAuthWindowRef.current.close();
     }
-
     const baseUrl = getBackendURL();
+
     oAuthWindowRef.current = window.open(
       `${baseUrl}/${oAuthProviders.link}`,
       '_blank',
-      'width=600,height=600,noopener'
+      'width=600,height=600'
     );
   };
 

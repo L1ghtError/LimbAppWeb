@@ -35,9 +35,6 @@ function AuthForm() {
           setInvalidSubmition(error.response.data.message);
         }
       });
-    console.log(
-      `Email: ${userEmail}, Fullname: ${userFullName}, UserName: ${userName} Password: ${userPassword} `
-    );
   };
 
   const handleLogin = () => {
