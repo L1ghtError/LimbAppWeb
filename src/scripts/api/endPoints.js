@@ -15,6 +15,12 @@ const endPoints = {
 
   basics: {
     url: 'api/user/basics'
+  },
+  googleOAuth: {
+    url: 'api/oauth/google'
+  },
+  googleOAuthCb: {
+    url: 'api/oauth/google/callback'
   }
 };
 

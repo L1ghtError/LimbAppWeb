@@ -14,7 +14,6 @@ const clientContext = {
     Accept: 'application/json'
   }
 };
-
 export const $api = axios.create(clientContext);
 export const $noInterceptApi = axios.create(clientContext);
 

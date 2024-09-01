@@ -7,8 +7,6 @@ export const fetchUserInfo = createAsyncThunk('posts/fetchUserInfo', async () =>
   return data;
 });
 
-
-
 export const UserState = {
   FULFILLED: 'FULFILLED',
   PENDING: 'PENDING',

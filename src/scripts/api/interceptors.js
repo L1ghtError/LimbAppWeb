@@ -2,6 +2,10 @@ import axios from 'axios';
 import AuthService from './auth';
 
 function isExpiredToken(token) {
+  if (typeof variable != 'string') {
+    return false;
+  }
+
   const parts = token.split('.');
   if (parts.length != 3) {
     return false;
