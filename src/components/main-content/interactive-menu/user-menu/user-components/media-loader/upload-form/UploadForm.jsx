@@ -1,17 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import './uploadFormStyles.css';
 import uploadIcon from '../../../../../../../assets/uploadIcon.svg';
 
-import { setMediaContentThunk, selectMediaContent } from '../../../../../../../store/MediaSlice';
+import { selectMediaContent } from '../../../../../../../store/MediaSlice';
 
-const ACCEPT_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
-
-function UploadForm() {
+function UploadForm({ onInputChange = () => {} }) {
   const [picturePreview, setPicturePreview] = useState('');
+
   const inputRef = useRef(null);
   const previewRef = useRef(null);
-  const dispatch = useDispatch();
+
   const mediaContent = useSelector(selectMediaContent);
 
   useEffect(() => {
@@ -22,15 +22,6 @@ function UploadForm() {
     }
   }, [mediaContent]);
 
-  const handleInputChange = (e) => {
-    if (inputRef.current.files.length === 1) {
-      const file = inputRef.current.files[0];
-      if (ACCEPT_TYPES.includes(file.type)) {
-        dispatch(setMediaContentThunk(file));
-      }
-      e.preventDefault();
-    }
-  };
   return (
     <div className="formWrapper">
       {picturePreview === '' ? (
@@ -43,7 +34,9 @@ function UploadForm() {
           </div>
           <button className="dropWrapper">
             <input
-              onChange={handleInputChange}
+              onChange={(e) => {
+                return onInputChange(e);
+              }}
               accept=".jpg, .jpeg, .png, .gif"
               placeholder="Select file"
               id="dropSection"
@@ -65,5 +58,9 @@ function UploadForm() {
     </div>
   );
 }
+
+UploadForm.propTypes = {
+  onInputChange: PropTypes.func
+};
 
 export default UploadForm;

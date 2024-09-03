@@ -54,6 +54,7 @@ export async function interceptTokenRespErr(error) {
       return axios.request(originalRequest);
     }
   }
+  return Promise.reject(error);
 }
 
 export async function strictTokenRespErr(error) {

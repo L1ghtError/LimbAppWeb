@@ -114,8 +114,7 @@ function AuthForm() {
           </>
         )}
       </div>
-
-      {invalidSubmition == '' ? null : <div className="authForm__invalid">{invalidSubmition}</div>}
+      {invalidSubmition == '' ? null : <div className="formActionNotification colorRed">{invalidSubmition}</div>}
     </div>
   );
 }

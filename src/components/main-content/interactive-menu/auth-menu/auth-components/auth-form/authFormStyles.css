@@ -121,13 +121,3 @@
 .authForm__submitButton:active {
   background-color: hsl(240, 40%, 16%); /* Set a whiter background color on press */
 }
-
-.authForm__invalid {
-  color: rgb(255, 0, 0);
-  padding-top: 5px;
-  padding-bottom: 10px;
-
-  font-size: 19px;
-  font-weight: 600;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
-}

@@ -21,6 +21,9 @@ const endPoints = {
   },
   googleOAuthCb: {
     url: 'api/oauth/google/callback'
+  },
+  uploadUserImage: {
+    url: 'api/user/upload/image'
   }
 };
 
