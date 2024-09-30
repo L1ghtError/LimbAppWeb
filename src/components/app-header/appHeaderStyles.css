@@ -3,3 +3,43 @@
   width: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 }
+
+#optionsWrapper {
+  height: 100%;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+#toggleDrawer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid transparent;
+  border-radius: 11px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  transition: background-color 0.2s;
+}
+
+#toggleDrawer:hover {
+  background-color: rgba(241, 228, 228, 0.1);
+}
+
+.toggleDrawer:active {
+  background-color: hsl(240, 40%, 16%); /* Set a whiter background color on press */
+}
+
+.drawerIcon {
+  justify-self: baseline;
+  width: 90%;
+  height: 90%;
+  filter: invert(85%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  user-select: none;
+  cursor: pointer;
+}

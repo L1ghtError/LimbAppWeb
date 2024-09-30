@@ -1,5 +1,6 @@
 import AppHeader from './components/app-header/AppHeader';
 import MainContent from './components/main-content/mainContent';
+import DrawerMenu from './components/main-content/drawer-menu/DrawerMenu';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUserInfo } from './store/UserSlice';
@@ -17,6 +18,7 @@ function App() {
     <>
       <div id="appBackground"></div>
       <AppHeader></AppHeader>
+      <DrawerMenu></DrawerMenu>
       <MainContent></MainContent>
     </>
   );

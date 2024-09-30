@@ -70,10 +70,10 @@ function AuthForm() {
         <div className="authForm__dash"></div>
       </div>
       <div className="authForm__types">
-        <div className="authForm__type" onClick={handleLoginType}>
+        <div className="authForm__type" onClick={handleLoginType} tabIndex="0">
           login
         </div>
-        <div className="authForm__type" onClick={handleRegisterType}>
+        <div className="authForm__type" onClick={handleRegisterType} tabIndex="0">
           register
         </div>
       </div>
@@ -114,7 +114,9 @@ function AuthForm() {
           </>
         )}
       </div>
-      {invalidSubmition == '' ? null : <div className="formActionNotification colorRed">{invalidSubmition}</div>}
+      {invalidSubmition == '' ? null : (
+        <div className="formActionNotification colorRed">{invalidSubmition}</div>
+      )}
     </div>
   );
 }

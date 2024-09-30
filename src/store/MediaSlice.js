@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const ACCEPT_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+export const ACCEPT_TYPES = ['image/jpeg', 'image/png'];
 
 function convertImageToUrl(imageData) {
   const reader = new FileReader();

@@ -1,0 +1,29 @@
+.navOption {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  width: 100%;
+
+  transition: background-color 0.2s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  user-select: none;
+  background-color: transparent;
+  border: 3px solid transparent;
+}
+
+.navOption:hover {
+  background-color: rgba(241, 228, 228, 0.1);
+}
+
+.navOption:active {
+  background-color: hsl(240, 40%, 0%); /* Set a whiter background color on press */
+}
+
+.navPlaceholder {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  color: #cccccc;
+  margin-left: 20px;
+  user-select: none;
+}
