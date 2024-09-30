@@ -8,11 +8,16 @@
   padding-top: 10px;
   padding-bottom: 10px;
   user-select: none;
+  border: none;
   background-color: transparent;
-  border: 3px solid transparent;
+
 }
 
 .navOption:hover {
+  background-color: rgba(241, 228, 228, 0.1);
+}
+.navOption:focus {
+  outline: none;
   background-color: rgba(241, 228, 228, 0.1);
 }
 

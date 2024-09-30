@@ -70,12 +70,12 @@ function AuthForm() {
         <div className="authForm__dash"></div>
       </div>
       <div className="authForm__types">
-        <div className="authForm__type" onClick={handleLoginType} tabIndex="0">
+        <button className="authForm__type" onClick={handleLoginType}>
           login
-        </div>
-        <div className="authForm__type" onClick={handleRegisterType} tabIndex="0">
+        </button>
+        <button className="authForm__type" onClick={handleRegisterType}>
           register
-        </div>
+        </button>
       </div>
 
       <div className={`authForm__Fields`}>

@@ -44,14 +44,21 @@
   font-size: 25px;
 
   cursor: pointer;
-
   user-select: none;
+
+  background-color: transparent;
+  border: none;
   border-bottom: 4px solid transparent;
+
   text-shadow: 4px 0px 5px rgba(0, 0, 0, 1);
   transition: border-bottom 0.15s;
 }
 
 .authForm__type:hover {
+  border-bottom: 4px solid black;
+}
+.authForm__type:focus {
+  outline: none;
   border-bottom: 4px solid black;
 }
 
