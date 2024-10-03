@@ -2,6 +2,7 @@ import './mediaLoaderStyles.css';
 import ControlButton from './control-button/ControlButton';
 import UploadForm from './upload-form/UploadForm';
 import UserService from '../../../../../../scripts/api/user';
+import SseService from '../../../../../../scripts/api/sse-connection';
 import cancelIcon from '../../../../../../assets/media-control-button/cancelIcon.svg';
 import uploadIcon from '../../../../../../assets/media-control-button/uploadIcon.svg';
 
@@ -14,11 +15,19 @@ import {
   ACCEPT_TYPES
 } from '../../../../../../store/MediaSlice';
 
+const ACTION_STATE = {
+  SUCCESS: 0,
+  FAILURE: 1,
+  INFO: 2
+};
+
+const ACTION_COLOR = ['colorGreen', 'colorRed', 'colorGray'];
+
 function MediaLoader() {
   const dispatch = useDispatch();
   const mediaContent = useSelector(selectMediaContent);
   const userFile = useRef(null);
-  const [actionNotif, setActionNotif] = useState({ message: '', isValid: true });
+  const [actionNotif, setActionNotif] = useState({ message: '', state: ACTION_STATE.INFO });
 
   const handleInputChange = (e) => {
     const files = e.target.files;
@@ -32,29 +41,40 @@ function MediaLoader() {
       e.preventDefault();
     }
   };
-
+  const onEnhanceMessage = (resp) => {
+    const msg = 'time to wait: ' + resp.data.estimation;
+    setActionNotif({ message: msg, state: ACTION_STATE.INFO });
+  };
+  const onEnhanceClose = () => {
+    // TODO: Download
+    setActionNotif({ message: 'Done', state: ACTION_STATE.SUCCESS });
+  };
   const handleUpload = () => {
     const file = userFile.current;
     if (mediaContent == '' || file == null) {
-      setActionNotif({ message: 'Nothing to upload :(', isValid: false });
+      setActionNotif({ message: 'Nothing to upload :(', state: ACTION_STATE.FAILURE });
       return;
     }
 
     if (ACCEPT_TYPES.includes(file.type)) {
+      setActionNotif({ message: 'preparing :)', state: ACTION_STATE.INFO });
       UserService.uploadImage(file)
-        .then(function () {
-          window.location.reload();
+        .then(function (resp) {
+          SseService.enhanceImage(resp.data.token, 1, {
+            onMessage: onEnhanceMessage,
+            onClose: onEnhanceClose
+          });
         })
         .catch(function (error) {
           if (error.response) {
-            setActionNotif({ message: error.response.data.message, isValid: false });
+            setActionNotif({ message: error.response.data.message, state: ACTION_STATE.FAILURE });
           }
         });
     }
   };
   const handleCancel = () => {
     if (mediaContent == '') {
-      setActionNotif({ message: 'Nothing to cancel ;)', isValid: false });
+      setActionNotif({ message: 'Nothing to cancel ;)', state: ACTION_STATE.FAILURE });
       return;
     }
     dispatch(flushMeidaContentThunk());
@@ -68,8 +88,7 @@ function MediaLoader() {
       </div>
       <UploadForm onInputChange={handleInputChange}></UploadForm>
       {actionNotif.message == '' ? null : (
-        <div
-          className={`formActionNotification ${actionNotif.isValid == true ? 'colorGreen' : 'colorRed'}`}>
+        <div className={`formActionNotification ${ACTION_COLOR[actionNotif.state]}`}>
           {actionNotif.message}
         </div>
       )}

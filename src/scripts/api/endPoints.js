@@ -24,6 +24,12 @@ const endPoints = {
   },
   uploadUserImage: {
     url: 'api/user/upload/image'
+  },
+  downloadUserImage: {
+    url: 'api/user/download/image'
+  },
+  enhanceUserImage: {
+    url: 'api/user/enhance/image'
   }
 };
 

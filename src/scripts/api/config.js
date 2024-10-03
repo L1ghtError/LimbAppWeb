@@ -1,6 +1,6 @@
 // config.js
 export const config = {
-    PROTOCOL: "http",
-    BACKEND_HOSTNAME: "localhost",
-    PORT: 5266
+  PROTOCOL: 'http',
+  BACKEND_HOSTNAME: 'localhost',
+  PORT: 5266
 };

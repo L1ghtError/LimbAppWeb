@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AuthService from './auth';
 
-function isExpiredToken(token) {
+function isValidToken(token) {
   if (typeof variable != 'string') {
     return false;
   }
@@ -25,7 +25,7 @@ function isExpiredToken(token) {
 
 export async function interceptTokenReq(config) {
   const localToken = localStorage.token;
-  const isValid = isExpiredToken(localToken);
+  const isValid = isValidToken(localToken);
   if (isValid === true) {
     config.headers.Authorization = `Bearer ${localToken}`;
   } else {

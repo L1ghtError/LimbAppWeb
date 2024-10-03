@@ -36,6 +36,7 @@
   font-weight: 600;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
 }
+
 /* for the sake of excluding inline styles */
 .colorRed {
   color: red;
@@ -43,4 +44,8 @@
 
 .colorGreen {
   color: green;
+}
+
+.colorGray {
+  color: gray;
 }
