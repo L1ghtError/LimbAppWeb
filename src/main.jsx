@@ -9,6 +9,7 @@ import store from './store/Store.js';
 import App from './App.jsx';
 import './index.css';
 
+// Screen resize
 function handleNarrowScreen() {
   // Calculates zoom out for screen that smaller then 500px
   const currentWidth = window.innerWidth;

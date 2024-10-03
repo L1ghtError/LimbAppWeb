@@ -1,10 +1,19 @@
-import { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './uploadFormStyles.css';
 import uploadIcon from '../../../../../../../assets/uploadIcon.svg';
 
-import { selectMediaContent } from '../../../../../../../store/MediaSlice';
+import { ImageCtx } from '../../../../../../../context/ImageCtx';
+
+function convertImageToUrl(imageData) {
+  const reader = new FileReader();
+  return new Promise((resolve) => {
+    reader.onload = (ev) => {
+      resolve(ev.target.result);
+    };
+    reader.readAsDataURL(imageData);
+  });
+}
 
 function UploadForm({ onInputChange = () => {} }) {
   const [picturePreview, setPicturePreview] = useState('');
@@ -12,15 +21,19 @@ function UploadForm({ onInputChange = () => {} }) {
   const inputRef = useRef(null);
   const previewRef = useRef(null);
 
-  const mediaContent = useSelector(selectMediaContent);
+  const { userImage } = useContext(ImageCtx);
 
   useEffect(() => {
-    if (mediaContent) {
-      setPicturePreview(mediaContent);
-    } else {
-      setPicturePreview('');
-    }
-  }, [mediaContent]);
+    const processImg = async () => {
+      if (userImage) {
+        const res = await convertImageToUrl(userImage);
+        setPicturePreview(res);
+      } else {
+        setPicturePreview('');
+      }
+    };
+    processImg();
+  }, [userImage]);
 
   return (
     <div className="formWrapper">

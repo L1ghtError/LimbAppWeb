@@ -7,14 +7,8 @@ import cancelIcon from '../../../../../../assets/media-control-button/cancelIcon
 import uploadIcon from '../../../../../../assets/media-control-button/uploadIcon.svg';
 
 import { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  flushMeidaContentThunk,
-  selectMediaContent,
-  setMediaContentThunk,
-  ACCEPT_TYPES
-} from '../../../../../../store/MediaSlice';
-
+import { ACCEPT_TYPES } from '../../../../../../store/MediaSlice';
+import { ImageCtx } from '../../../../../../context/ImageCtx';
 const ACTION_STATE = {
   SUCCESS: 0,
   FAILURE: 1,
@@ -24,8 +18,7 @@ const ACTION_STATE = {
 const ACTION_COLOR = ['colorGreen', 'colorRed', 'colorGray'];
 
 function MediaLoader() {
-  const dispatch = useDispatch();
-  const mediaContent = useSelector(selectMediaContent);
+  const [userImage, setUserImage] = useState(undefined);
   const userFile = useRef(null);
   const [actionNotif, setActionNotif] = useState({ message: '', state: ACTION_STATE.INFO });
 
@@ -36,7 +29,7 @@ function MediaLoader() {
       userFile.current = file;
 
       if (ACCEPT_TYPES.includes(file.type)) {
-        dispatch(setMediaContentThunk(file));
+        setUserImage(file);
       }
       e.preventDefault();
     }
@@ -51,7 +44,7 @@ function MediaLoader() {
   };
   const handleUpload = () => {
     const file = userFile.current;
-    if (mediaContent == '' || file == null) {
+    if (userImage == null || file == null) {
       setActionNotif({ message: 'Nothing to upload :(', state: ACTION_STATE.FAILURE });
       return;
     }
@@ -73,26 +66,34 @@ function MediaLoader() {
     }
   };
   const handleCancel = () => {
-    if (mediaContent == '') {
+    if (userImage == undefined) {
       setActionNotif({ message: 'Nothing to cancel ;)', state: ACTION_STATE.FAILURE });
       return;
     }
-    dispatch(flushMeidaContentThunk());
+    setUserImage(null);
   };
 
   return (
-    <div className="mediaLoader">
-      <div className="controlButtons">
-        <ControlButton onClick={handleUpload} btnIcon={uploadIcon} btnDesc="Upload"></ControlButton>
-        <ControlButton onClick={handleCancel} btnIcon={cancelIcon} btnDesc="Cancel"></ControlButton>
-      </div>
-      <UploadForm onInputChange={handleInputChange}></UploadForm>
-      {actionNotif.message == '' ? null : (
-        <div className={`formActionNotification ${ACTION_COLOR[actionNotif.state]}`}>
-          {actionNotif.message}
+    <ImageCtx.Provider value={{ userImage, setUserImage }}>
+      <div className="mediaLoader">
+        <div className="controlButtons">
+          <ControlButton
+            onClick={handleUpload}
+            btnIcon={uploadIcon}
+            btnDesc="Upload"></ControlButton>
+          <ControlButton
+            onClick={handleCancel}
+            btnIcon={cancelIcon}
+            btnDesc="Cancel"></ControlButton>
         </div>
-      )}
-    </div>
+        <UploadForm onInputChange={handleInputChange}></UploadForm>
+        {actionNotif.message == '' ? null : (
+          <div className={`formActionNotification ${ACTION_COLOR[actionNotif.state]}`}>
+            {actionNotif.message}
+          </div>
+        )}
+      </div>
+    </ImageCtx.Provider>
   );
 }
 
