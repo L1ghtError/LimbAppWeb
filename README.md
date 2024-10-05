@@ -1,8 +1,29 @@
-# React + Vite
+## LimbAppWeb
+### Image procesing service written on JS
+Works with [Backend](https://github.com/L1ghtError/LimbService).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+>[!NOTE]
+>**Image processing Worker** source code recently not available.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### How to build
+native:
+```bash
+$ npm istall
+$ npm run dev
+```
+or
+```bash
+$ npm run build
+```
+Docker:
+```bash
+** in future updates**
+```
+Docker-compose:
+```bash
+** in future updates**
+```
+> **Tech stack:**
+> - [React](https://react.dev/) as ui-framework
+> - [Vite](https://vite.dev/) development server
+> - All smaller dependencies can be found in [package.json](https://github.com/L1ghtError/LimbAppWeb/blob/main/package.json)
