@@ -9,6 +9,7 @@ import uploadIcon from '../../../../../../assets/media-control-button/uploadIcon
 import { useState, useRef } from 'react';
 import { ACCEPT_TYPES } from '../../../../../../store/MediaSlice';
 import { ImageCtx } from '../../../../../../context/ImageCtx';
+import { RespToFile } from '../../../../../../scripts/convert';
 const ACTION_STATE = {
   SUCCESS: 0,
   FAILURE: 1,
@@ -16,12 +17,13 @@ const ACTION_STATE = {
 };
 
 const ACTION_COLOR = ['colorGreen', 'colorRed', 'colorGray'];
-
+// TODO: Handle network errors [no workers available, filesize is too big] etc...
+// TODO: Also consider remove MediaSlice
 function MediaLoader() {
   const [userImage, setUserImage] = useState(undefined);
   const userFile = useRef(null);
   const [actionNotif, setActionNotif] = useState({ message: '', state: ACTION_STATE.INFO });
-
+  const [isImageReady, setIsImageReady] = useState(false);
   const handleInputChange = (e) => {
     const files = e.target.files;
     if (files.length === 1) {
@@ -38,10 +40,26 @@ function MediaLoader() {
     const msg = 'time to wait: ' + resp.data.estimation;
     setActionNotif({ message: msg, state: ACTION_STATE.INFO });
   };
-  const onEnhanceClose = () => {
-    // TODO: Download
-    setActionNotif({ message: 'Done', state: ACTION_STATE.SUCCESS });
+  const onEnhanceClose = (id) => {
+    UserService.downloadImage(id)
+      .then(function (resp) {
+        const file = RespToFile(resp);
+        setActionNotif({ message: '', state: ACTION_STATE.INFO });
+        setIsImageReady(true);
+        setUserImage(file);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          setActionNotif({ message: error.response.data.message, state: ACTION_STATE.FAILURE });
+        }
+      });
   };
+  const handleDownload = () => {
+    if (userImage == undefined) {
+      return;
+    }
+  };
+
   const handleUpload = () => {
     const file = userFile.current;
     if (userImage == null || file == null) {
@@ -55,7 +73,9 @@ function MediaLoader() {
         .then(function (resp) {
           SseService.enhanceImage(resp.data.token, 1, {
             onMessage: onEnhanceMessage,
-            onClose: onEnhanceClose
+            onClose: () => {
+              onEnhanceClose(resp.data.token);
+            }
           });
         })
         .catch(function (error) {
@@ -91,6 +111,14 @@ function MediaLoader() {
           <div className={`formActionNotification ${ACTION_COLOR[actionNotif.state]}`}>
             {actionNotif.message}
           </div>
+        )}
+        {isImageReady == false ? null : (
+          <a
+            onClick={handleDownload}
+            href={URL.createObjectURL(userImage)}
+            download={userImage.name}>
+            Download
+          </a>
         )}
       </div>
     </ImageCtx.Provider>

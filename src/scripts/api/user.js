@@ -18,5 +18,11 @@ export default class UserService {
       }
     });
   }
-  
+
+  static async downloadImage(imgId) {
+    const urlData = endPoints('downloadUserImage');
+    return $api.get(`${urlData.url}/${imgId}`, {
+      responseType: 'blob'
+    });
+  }
 }
