@@ -71,10 +71,10 @@ function MediaLoader() {
       setActionNotif({ message: 'preparing :)', state: ACTION_STATE.INFO });
       UserService.uploadImage(file)
         .then(function (resp) {
-          SseService.enhanceImage(resp.data.token, 1, {
+          SseService.enhanceImage(resp.data.imageid, 1, {
             onMessage: onEnhanceMessage,
             onClose: () => {
-              onEnhanceClose(resp.data.token);
+              onEnhanceClose(resp.data.imageid);
             }
           });
         })
@@ -91,6 +91,7 @@ function MediaLoader() {
       return;
     }
     setUserImage(null);
+    setIsImageReady(false);
   };
 
   return (
