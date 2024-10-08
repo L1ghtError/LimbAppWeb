@@ -1,5 +1,5 @@
 import AppHeader from './components/app-header/AppHeader';
-import MainContent from './components/main-content/mainContent';
+import MainContent from './components/main-content/MainContent';
 import DrawerMenu from './components/main-content/drawer-menu/DrawerMenu';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';

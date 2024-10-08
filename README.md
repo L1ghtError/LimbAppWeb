@@ -17,11 +17,12 @@ $ npm run build
 ```
 Docker:
 ```bash
-** in future updates**
+$ docker build -t web .
+$ docker run -p 5173:80 web 
 ```
 Docker-compose:
 ```bash
-** in future updates**
+$ docker-compose up --build
 ```
 > **Tech stack:**
 > - [React](https://react.dev/) as ui-framework
