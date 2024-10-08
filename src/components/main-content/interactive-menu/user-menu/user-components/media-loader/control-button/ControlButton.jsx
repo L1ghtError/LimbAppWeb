@@ -1,6 +1,7 @@
 import './controlButtonStyles.css';
 import PropTypes from 'prop-types';
-
+// TODO: make it regular <button></button>
+// TODO: extent porps, to simulate <a></a> behavior
 function ControlButton({ btnIcon, btnDesc, onClick = () => {} }) {
   return (
     <div className="controlButton" onClick={onClick}>

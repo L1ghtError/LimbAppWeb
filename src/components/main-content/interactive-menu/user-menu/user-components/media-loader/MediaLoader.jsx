@@ -24,6 +24,7 @@ function MediaLoader() {
   const userFile = useRef(null);
   const [actionNotif, setActionNotif] = useState({ message: '', state: ACTION_STATE.INFO });
   const [isImageReady, setIsImageReady] = useState(false);
+  const progressRef = useRef(null);
   const handleInputChange = (e) => {
     const files = e.target.files;
     if (files.length === 1) {
@@ -37,13 +38,35 @@ function MediaLoader() {
     }
   };
   const onEnhanceMessage = (resp) => {
-    const msg = 'time to wait: ' + resp.data.estimation;
-    setActionNotif({ message: msg, state: ACTION_STATE.INFO });
+    // Start a progress interval
+    let elapsedTime = 0;
+    const interval = 100; // update every 100ms (adjust as needed)
+    let estimation = resp.data.estimation; // time in milliseconds
+    // not nessesary
+    let type = 'ms'
+    if (typeof estimation == 'string') {
+      const number = parseInt(estimation, 10);
+      type = estimation.replace(number, '');
+      estimation = number
+    }
+    if(progressRef != null){
+      // TODO: handle future calls as prolonging process
+    }
+    progressRef.current = setInterval(() => {
+      elapsedTime += interval;
+      const msg = `Time to wait: ${elapsedTime}/${estimation}${type}`;
+      setActionNotif({ message: msg, state: ACTION_STATE.INFO });
+
+      if (elapsedTime >= estimation) {
+        clearInterval(progressRef.current);
+      }
+    }, interval);
   };
   const onEnhanceClose = (id) => {
     UserService.downloadImage(id)
       .then(function (resp) {
         const file = RespToFile(resp);
+        clearInterval(progressRef.current);
         setActionNotif({ message: '', state: ACTION_STATE.INFO });
         setIsImageReady(true);
         setUserImage(file);
@@ -53,11 +76,6 @@ function MediaLoader() {
           setActionNotif({ message: error.response.data.message, state: ACTION_STATE.FAILURE });
         }
       });
-  };
-  const handleDownload = () => {
-    if (userImage == undefined) {
-      return;
-    }
   };
 
   const handleUpload = () => {
@@ -115,7 +133,7 @@ function MediaLoader() {
         )}
         {isImageReady == false ? null : (
           <a
-            onClick={handleDownload}
+            className="controlButton"
             href={URL.createObjectURL(userImage)}
             download={userImage.name}>
             Download
