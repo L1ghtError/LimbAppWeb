@@ -1,6 +1,7 @@
 ## LimbAppWeb
 ### Image procesing service written on JS
 Works with [Backend](https://github.com/L1ghtError/LimbService).
+#### [Video Example](https://l1ghterror.github.io/LimbAppWeb/preview.mp4).
 
 >[!NOTE]
 >**Image processing Worker** source code recently not available.
